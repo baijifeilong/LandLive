@@ -11,10 +11,24 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    signingConfigs {
+        release {
+            def props = new Properties()
+            props.load(project.rootProject.file('local.properties').newDataInputStream())
+            storeFile file(props.getProperty('sign.keystore.name', 'NOT_CONFIGURED'))
+            storePassword props.getProperty('sign.keystore.password', 'NOT_CONFIGURED')
+            keyAlias props.getProperty('sign.key.name', 'NOT_CONFIGURED')
+            keyPassword props.getProperty('sign.key.password', 'NOT_CONFIGURED')
+        }
+    }
+
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 }
