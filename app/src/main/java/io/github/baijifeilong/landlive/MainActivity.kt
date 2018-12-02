@@ -31,9 +31,9 @@ class MainActivity : AppCompatActivity() {
         supportActionBar!!.hide()
 
         val inputs = mutableListOf<Char>()
-
         val text = Scanner(resources.openRawResource(R.raw.playlist)).useDelimiter("\\A").next()
         val playlist = text.split("\n").map { it.split(" ") }.map { it.first() to it.last() }
+
         setContentView(verticalLayout {
             relativeLayout {
                 hell = this
@@ -61,6 +61,7 @@ class MainActivity : AppCompatActivity() {
                     bottomMargin = 120
                 }
             }.lparams(matchParent, matchParent)
+
             addView(RecyclerView(this@MainActivity).apply {
                 heaven = this
                 val landscape = resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
